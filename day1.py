@@ -22,3 +22,4 @@ with open('./inputs/day1.txt') as f:
     print('Second largest: ' + str(pack2))
     print('Third largest: ' + str(pack3))
     print('Total: ' + str(pack1 + pack2 + pack3))
+    
