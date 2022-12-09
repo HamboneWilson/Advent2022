@@ -12,7 +12,10 @@ class NonBinTree:
         self.size = self.size + num
 
     def __repr__(self):
-        return f"NonBinTree({self.val}{self.size}): \n {self.nodes}"
+        if self.size <= 100000:
+            return f"NonBinTree({self.val}{self.size}): \n {self.nodes}"
+        else:
+            return f"{self.nodes}"
 
 
 fileTree = None
@@ -32,6 +35,8 @@ with open('./inputs/day7.txt') as f:
                 else:
                     currentNode.add_node(dir)
                     currentNode = currentNode.nodes[len(currentNode.nodes)-1]
+            #else:
+                # move current node up one tier
         elif line == '$ ls':
             break
         else:
@@ -39,6 +44,7 @@ with open('./inputs/day7.txt') as f:
             if lineParts[0].isnumeric():
                 currentNode.size = currentNode.size + int(lineParts[0])
 
+#recursively roll up values of all the nodes
 
 print(fileTree)
 
