@@ -18,6 +18,14 @@ class NonBinTree:
             return f"{self.nodes}"
 
 
+def navigate(tree, num_array):
+    node = tree
+    print(num_array)
+    for num in num_array:
+        node = node.nodes[num]
+    return node
+
+
 fileTree = None
 nodePath = []
 currentNode = None
@@ -28,15 +36,19 @@ with open('./inputs/day7.txt') as f:
     for line in inputLines:
         if line.startswith('$ cd'):
             if line != '$ cd ..\n':
-                dir = line.split(' ')[2].replace('\n', '')
+                directory = line.split(' ')[2].replace('\n', '')
                 if fileTree is None:
-                    fileTree = NonBinTree(dir)
+                    fileTree = NonBinTree(directory)
                     currentNode = fileTree
+                    nodePath.append(0)
                 else:
-                    currentNode.add_node(dir)
-                    currentNode = currentNode.nodes[len(currentNode.nodes)-1]
-            #else:
-                # move current node up one tier
+                    nodePath.append(len(currentNode.nodes))
+                    currentNode.add_node(directory)
+                    currentNode = currentNode.nodes[-1]
+            else:
+                nodePath.pop(-1)
+                currentNode = navigate(fileTree, nodePath)
+
         elif line == '$ ls':
             break
         else:
