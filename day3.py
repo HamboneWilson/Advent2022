@@ -5,20 +5,38 @@ with open('./inputs/day3.txt') as f:
 
     inputLines = f.readlines()
 
-    total = 0
+    total1 = 0
+    total2 = 0
 
+    #Part 1
     for line in inputLines:
         compartment1 = line[0:int(len(line)/2)]
         compartment2 = line[int(len(line)/2):-1]
         for item in compartment1:
             if compartment2.count(item) > 0:
-                print(item)
                 p = priorities[item.lower()]
                 if item.isupper():
                     p = p + 26
-                print(p)
-                total = total + p
+                total1 = total1 + p
                 break
 
-    print('Total Priority: ' + str(total))
+    print('Total Priority Part 1: ' + str(total1))
 
+    #Part 2
+    index = 0
+
+    while index < len(inputLines) - 2:
+        packString1 = inputLines[index]
+        packString2 = inputLines[index + 1]
+        packString3 = inputLines[index + 2]
+        for item in packString1:
+            if packString2.count(item) > 0 and packString3.count(item) > 0:
+                p = priorities[item.lower()]
+                if item.isupper():
+                    p = p + 26
+                total2 = total2 + p
+
+                index = index + 3
+                break
+
+    print('Total Priority Part 2: ' + str(total2))
